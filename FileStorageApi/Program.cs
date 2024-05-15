@@ -1,5 +1,6 @@
 using FileStorageApi;
 using FileStorageApi.Data;
+using FileStorageApi.Interfaces;
 using FileStorageApi.Models;
 using FileStorageApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,6 +38,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<ContextSeedService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 
