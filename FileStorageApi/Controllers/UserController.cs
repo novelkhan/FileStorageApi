@@ -49,7 +49,7 @@ namespace FileStorageApi.Controllers
 
 
 
-        public User? GetCurrentUser()
+        private User? GetCurrentUser()
         {
             // Get the user ID of the currently logged-in user synchronously
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -66,7 +66,7 @@ namespace FileStorageApi.Controllers
         }
 
 
-        public async Task<User?> GetCurrentUserAsync()
+        private async Task<User?> GetCurrentUserAsync()
         {
             //// Get the user ID of the currently logged-in user
             //string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -94,7 +94,7 @@ namespace FileStorageApi.Controllers
 
 
 
-        public string? GetCurrentUserId()
+        private string? GetCurrentUserId()
         {
             // Get the user ID of the currently logged-in user
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -103,7 +103,7 @@ namespace FileStorageApi.Controllers
         }
 
 
-        public async Task<string?> GetCurrentUserIdAsync()
+        private async Task<string?> GetCurrentUserIdAsync()
         {
             //// Get the user ID of the currently logged-in user
             //string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
