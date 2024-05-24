@@ -49,7 +49,7 @@ namespace FileStorageApi.Controllers
         [HttpPost("refresh-token")]
         public async Task<ActionResult<UserDto>> RefereshToken()
         {
-            var token = Request.Cookies["identityAppRefreshToken"];
+            var token = Request.Cookies[_config["JWT:CookiesKey"]];
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (IsValidRefreshTokenAsync(userId, token).GetAwaiter().GetResult())
@@ -272,6 +272,7 @@ namespace FileStorageApi.Controllers
         #region Private Helper Methods
         private async Task<UserDto> CreateApplicationUserDto(User user)
         {
+            await SaveRefreshTokenAsync(user);
             return new UserDto
             {
                 FirstName = user.FirstName,
@@ -345,7 +346,7 @@ namespace FileStorageApi.Controllers
                 HttpOnly = true,
             };
 
-            Response.Cookies.Append("identityAppRefreshToken", refreshToken.Token, cookieOptions);
+            Response.Cookies.Append(_config["JWT:CookiesKey"], refreshToken.Token, cookieOptions);
         }
 
         public async Task<bool> IsValidRefreshTokenAsync(string userId, string token)
