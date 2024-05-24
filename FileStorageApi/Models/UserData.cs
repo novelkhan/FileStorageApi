@@ -9,10 +9,10 @@ namespace FileStorageApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserDataId { get; set; }
-        #nullable enable
-        public List<UserFile>? Files { get; set; }
-        #nullable disable
 
+        public List<UserFile> Files { get; set; } = new List<UserFile>();
+
+        [Required]
         [ForeignKey("Id")]
         public string UserId { get; set; }
     }

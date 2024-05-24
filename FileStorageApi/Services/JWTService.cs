@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace FileStorageApi.Services
 {
@@ -43,7 +44,7 @@ namespace FileStorageApi.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(userClaims),
-                Expires = DateTime.UtcNow.AddDays(int.Parse(_config["JWT:ExpiresInDays"])),
+                Expires = DateTime.UtcNow.AddMinutes(int.Parse(_config["JWT:ExpiresInMinutes"])),
                 SigningCredentials = creadentials,
                 Issuer = _config["JWT:Issuer"]
             };
@@ -51,6 +52,23 @@ namespace FileStorageApi.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwt = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(jwt);
+        }
+
+
+        public RefreshToken CreateRefreshToken(User user)
+        {
+            var token = new byte[32];
+            using var randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(token);
+
+            var refreshToken = new RefreshToken()
+            {
+                Token = Convert.ToBase64String(token),
+                User = user,
+                DateExpiresUtc = DateTime.UtcNow.AddDays(int.Parse(_config["JWT:RefreshTokenExpiresInDays"]))
+            };
+
+            return refreshToken;
         }
     }
 }

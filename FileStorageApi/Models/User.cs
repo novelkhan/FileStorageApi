@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections.Generic;
 
 namespace FileStorageApi.Models
 {
@@ -11,8 +12,11 @@ namespace FileStorageApi.Models
         [Required]
         public string LastName { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-        #nullable enable
-        public UserData? Data { get; set; }
-        #nullable disable
+        //public string Provider { get; set; }
+
+
+        public UserData UserData { get; set; } = new UserData();
+
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

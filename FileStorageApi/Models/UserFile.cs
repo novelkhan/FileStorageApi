@@ -13,6 +13,7 @@ namespace FileStorageApi.Models
         public string Filesize { get; set; }
         public byte[] Filebytes { get; set; }
 
+        [Required]
         [ForeignKey("UserDataId")]
         public int UserDataId { get; set; }
     }

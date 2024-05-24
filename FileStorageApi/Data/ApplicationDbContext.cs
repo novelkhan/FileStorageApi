@@ -11,6 +11,8 @@ namespace FileStorageApi.Data
 
         }
 
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<UserData> UserData { get; set; }
         public DbSet<UserFile> UserFiles { get; set; }
     }
