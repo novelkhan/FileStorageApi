@@ -36,19 +36,19 @@ namespace FileStorageApi.Services
             //                                    emailSend);
 
 
-            //var isEmailSent = await EmailSendViaGmailAsync(_config["Gmail:EmailAddress"],
-            //                                    _config["Gmail:Password"],
-            //                                    int.Parse(_config["Gmail:Port"]),
-            //                                    _config["Gmail:Host"],
-            //                                    emailSend);
-
-
-
-            var isEmailSent = EmailSendViaGmail(_config["Gmail:EmailAddress"],
+            var isEmailSent = await EmailSendViaGmailAsync(_config["Gmail:EmailAddress"],
                                                 _config["Gmail:TwoFactorPassword"],
                                                 int.Parse(_config["Gmail:Port"]),
                                                 _config["Gmail:Host"],
                                                 emailSend);
+
+
+
+            //var isEmailSent = EmailSendViaGmail(_config["Gmail:EmailAddress"],
+            //                                    _config["Gmail:TwoFactorPassword"],
+            //                                    int.Parse(_config["Gmail:Port"]),
+            //                                    _config["Gmail:Host"],
+            //                                    emailSend);
 
 
             return isEmailSent;
@@ -88,14 +88,14 @@ namespace FileStorageApi.Services
 
 
 
-        public async Task<bool> EmailSendViaGmailAsync(string emailAddress, string Password, int port, string host, EmailSendDto emailSend)
+        public async Task<bool> EmailSendViaGmailAsync(string emailAddress, string twoFactorPassword, int port, string host, EmailSendDto emailSend)
         {
             try
             {
                 var smtpClient = new System.Net.Mail.SmtpClient(host, port)
                 {
                     EnableSsl = true,
-                    Credentials = new NetworkCredential(emailAddress, Password)
+                    Credentials = new NetworkCredential(emailAddress, twoFactorPassword)
                 };
 
                 var message = new MailMessage(from: emailAddress, to: emailSend.To, subject: emailSend.Subject, body: emailSend.Body);
