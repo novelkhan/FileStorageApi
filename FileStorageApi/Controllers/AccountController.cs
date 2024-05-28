@@ -59,6 +59,7 @@ namespace FileStorageApi.Controllers
                 return await CreateApplicationUserDto(user);
             }
 
+
             return Unauthorized("Invalid or expired token, please try to login");
         }
 
@@ -349,7 +350,7 @@ namespace FileStorageApi.Controllers
             Response.Cookies.Append(_config["JWT:CookiesKey"], refreshToken.Token, cookieOptions);
         }
 
-        public async Task<bool> IsValidRefreshTokenAsync(string userId, string token)
+        private async Task<bool> IsValidRefreshTokenAsync(string userId, string token)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token)) return false;
 
