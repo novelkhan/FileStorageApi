@@ -118,6 +118,8 @@ namespace FileStorageApi.Services
 
 
 
+
+        //The Outlook methods are not tested yet, But the gmail methods are done properly
         public bool EmailSendViaOutlook(string emailAddress, string Password, int port, string host, EmailSendDto emailSend)
         {
             try
