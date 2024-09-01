@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FileStorageApi.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
